@@ -1,5 +1,5 @@
 @extends('backend.layouts.master')
-@section('çontent')
+@section('content')
     <div class="pagetitle">
         <h1>Dashboard</h1>
         <nav>
