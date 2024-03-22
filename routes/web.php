@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AboutSectionController;
 use App\Http\Controllers\Backend\HomeSectionController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -36,10 +37,15 @@ Route::middleware('auth')->group(function () {
     /*
     * Home Section Routes...
     */
-    Route::resource('home-section', HomeSectionController::class);
-    Route::post('/test', [HomeSectionController::class, 'storeByAjax'])->name('test');
-    Route::post('/update/{id}', [HomeSectionController::class, 'updateAjax'])->name('home-status.update');
-    Route::put('/status-change/{id}', [HomeSectionController::class, 'statusChange'])->name('status.change');
+    Route::resource('home', HomeSectionController::class);
+    Route::post('/home/store', [HomeSectionController::class, 'storeAjax'])->name('home.store');
+    Route::post('/home/update/{id}', [HomeSectionController::class, 'updateAjax'])->name('home.update');
+    Route::put('/home/status-change/{id}', [HomeSectionController::class, 'statusChangeAjax'])->name('home.status.change');
+
+    /*
+    * About Section Routes...
+    */
+    Route::resource('about', AboutSectionController::class);
 });
 
 require __DIR__ . '/auth.php';

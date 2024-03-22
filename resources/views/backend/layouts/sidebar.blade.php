@@ -16,17 +16,24 @@
             </a>
             <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
-                    <a href="{{ route('home-section.index') }}">
+                    <a href="{{ route('home.index') }}">
                         <i class="bi bi-circle"></i><span>All</span>
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('home-section.create') }}">
+                    <a href="{{ route('home.create') }}">
                         <i class="bi bi-circle"></i><span>Add</span>
                     </a>
                 </li>
             </ul>
-        </li><!-- End Components Nav -->
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{{ route('about.index') }}">
+                <i class="bi bi-card-list"></i>
+                <span>About Section</span>
+            </a>
+        </li>
 
         <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">

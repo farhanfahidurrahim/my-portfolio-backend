@@ -18,7 +18,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex justify-between align-items-center">
-                            <h5 class="card-title">Datatables</h5>
+                            <h5 class="card-title">About Section</h5>
 
                             <!-- Button trigger modal -->
                             <a href="" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">
@@ -42,7 +42,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($HomeSection as $row)
+                                @foreach ($aboutSection as $row)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $row->name }}</td>

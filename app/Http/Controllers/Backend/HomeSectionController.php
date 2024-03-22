@@ -43,7 +43,7 @@ class HomeSectionController extends Controller
         }
     }
 
-    public function storeByAjax(HomeSectionRequest $request)
+    public function storeAjax(HomeSectionRequest $request)
     {
         $inputData = $request->all();
         $homeSection = HomeSection::create($inputData);
@@ -67,7 +67,7 @@ class HomeSectionController extends Controller
         ]);
     }
 
-    public function statusChange(Request $request, $id)
+    public function statusChangeAjax(Request $request, $id)
     {
         $HomeSection = HomeSection::find($id);
         $HomeSection->status = $request->status;
