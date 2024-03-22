@@ -51,8 +51,20 @@
                                         <td>{{ $row->github_link }}</td>
                                         <td>{{ $row->linkedin_link }}</td>
                                         <td>{{ $row->others_link }}</td>
-                                        <td>Active</td>
-                                        <td>Edit</td>
+                                        <td>
+                                            <div class="form-check form-switch">
+                                                <input class="form-check-input statusToggleCls" type="checkbox"
+                                                    id="statusToggle{{ $row->id }}"
+                                                    {{ $row->status == 'active' ? 'checked' : '' }}>
+                                                <label class="form-check-label"
+                                                    for="statusToggle{{ $row->id }}"></label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <a href="" class="btn btn-outline-primary" data-bs-toggle="modal"
+                                                data-bs-target="#editModal">Edit</a>
+                                            <a href="" class="btn btn-outline-danger">Delete</a>
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -64,7 +76,7 @@
         </div>
     </section>
 
-    <!-- Modal -->
+    <!-- Add Modal -->
     <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -130,6 +142,14 @@
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
+                        <div class="col-md-4">
+                            <label for="inputState" class="form-label">Status</label>
+                            <select name="status" id="status" class="form-select">
+                                <option selected disabled>Choose...</option>
+                                <option value="active">Active</option>
+                                <option value="inactive">Inactive</option>
+                            </select>
+                        </div>
                         <div class="text-center">
                             <button type="submit" class="btn btn-primary submitBtnModal">Submit</button>
                             <button type="reset" class="btn btn-secondary">Reset</button>
@@ -140,7 +160,91 @@
         </div>
     </div>
 
-    <!-- JavaScript code for AJAX form submission -->
+    <!-- Edit Modal -->
+    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Create New</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <!-- Modal Body -->
+                <div class="modal-body">
+                    <form id="addModalForm" action="" method="" class="row g-3">
+                        @csrf
+                        <div class="errMsgShow">
+
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="inputName5" class="form-label">Your Name</label>
+                            <input type="text" name="name" id="name" value="{{ old('name') }}"
+                                class="form-control @error('name') is-invalid @enderror">
+                            @error('name')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="col-md-6">
+                            <label for="inputEmail5" class="form-label">Designation</label>
+                            <input type="text" name="designation" id="designation" value="{{ old('designation') }}"
+                                class="form-control @error('designation') is-invalid @enderror">
+                            @error('designation')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="col-md-6">
+                            <label for="inputPassword5" class="form-label">Resume</label>
+                            <input type="text" name="resume" id="resume" value="{{ old('resume') }}"
+                                class="form-control
+                            @error('resume') is-invalid @enderror">
+                            @error('resume')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="col-6">
+                            <label for="inputAddress5" class="form-label">Github Link</label>
+                            <input type="url" name="github_link" id="github_link" value="{{ old('github_link') }}"
+                                class="form-control @error('github_link') is-invalid @enderror">
+                            @error('github_link')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="col-6">
+                            <label for="inputAddress2" class="form-label">Linkedin Link</label>
+                            <input type="url" name="linkedin_link" id="linkedin_link"
+                                value="{{ old('linkedin_link') }}"
+                                class="form-control @error('linkedin_link') is-invalid @enderror">
+                            @error('github_link')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="col-6">
+                            <label for="inputAddress2" class="form-label">Others Link</label>
+                            <input type="url" name="others_link" id="others_link" value="{{ old('others_link') }}"
+                                class="form-control @error('others_link') is-invalid @enderror">
+                            @error('others_link')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="col-md-4">
+                            <label for="inputState" class="form-label">Status</label>
+                            <select name="status" id="status" class="form-select">
+                                <option selected disabled>Choose...</option>
+                                <option value="active">Active</option>
+                                <option value="inactive">Inactive</option>
+                            </select>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary submitBtnModal">Submit</button>
+                            <button type="reset" class="btn btn-secondary">Reset</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- jquery Ajax -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $.ajaxSetup({
@@ -149,9 +253,11 @@
             }
         });
     </script>
+
+    <!-- AJAX Form Submit -->
     <script>
         $(document).ready(function() {
-            //alert("hi");
+
             $(document).on('click', '.submitBtnModal', function(e) {
                 e.preventDefault();
                 let name = $('#name').val();
@@ -160,12 +266,7 @@
                 let github_link = $('#github_link').val();
                 let linkedin_link = $('#linkedin_link').val();
                 let others_link = $('#others_link').val();
-                // console.log("name ki?", name)
-                // console.log("desig ki?", designation)
-                // console.log("resume ki?", resume)
-                // console.log("git ki?", github_link)
-                // console.log("linked ki?", linkedin_link)
-                // console.log("other ki?", others_link)
+                let status = $('#status').val();
 
                 $.ajax({
                     url: '{{ route('test') }}',
@@ -177,10 +278,11 @@
                         github_link: github_link,
                         linkedin_link: linkedin_link,
                         others_link: others_link,
+                        status: status,
                     },
                     success: function(response) {
-                        console.log("response ki?", response)
                         if (response.status == 'success') {
+                            toastr.success('Created successfully');
                             $('#addModal').modal('hide');
                             $('#addModalForm')[0].reset();
                             $('.table').load(location.href + ' .table');
@@ -196,7 +298,31 @@
                         });
                     },
                 });
-            })
+            });
+        });
+    </script>
+
+    <!-- AJAX Status Change -->
+    <script>
+        $(document).ready(function() {
+            $('.statusToggleCls').on('change', function() {
+                let id = $(this).attr('id').replace('statusToggle', '');
+                let status = $(this).prop('checked') ? 'active' : 'inactive';
+
+                $.ajax({
+                    url: "{{ url('/status-change/') }}/" + id,
+                    method: 'PUT',
+                    data: {
+                        id: id,
+                        status: status,
+                    },
+                    success: function(response) {
+                        if (response.status == 'success') {
+                            toastr.success('Status changed successfully');
+                        }
+                    }
+                });
+            });
         });
     </script>
 @endsection

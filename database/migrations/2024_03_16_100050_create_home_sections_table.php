@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('github_link')->nullable();
             $table->string('linkedin_link')->nullable();
             $table->string('others_link')->nullable();
+            $table->enum('status', ['active', 'inactive'])->default('active')->nullable();
             $table->timestamps();
         });
     }

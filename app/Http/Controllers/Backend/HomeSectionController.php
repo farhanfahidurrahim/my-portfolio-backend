@@ -48,7 +48,6 @@ class HomeSectionController extends Controller
         $inputData = $request->all();
         $homeSection = HomeSection::create($inputData);
         if ($homeSection) {
-            Toastr::success('Created successful!', 'Success');
             return response()->json([
                 'status' => 'success',
             ]);
@@ -56,6 +55,16 @@ class HomeSectionController extends Controller
             Toastr::error('Something went wrong!', 'Error');
             return response()->json(['error' => 'Something went wrong'], 500);
         }
+    }
+
+    public function statusChange(Request $request, $id)
+    {
+        $HomeSection = HomeSection::find($id);
+        $HomeSection->status = $request->status;
+        $HomeSection->save();
+        return response()->json([
+            'status' => 'success',
+        ]);
     }
 
     /**
