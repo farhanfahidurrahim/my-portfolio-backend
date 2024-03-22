@@ -57,6 +57,16 @@ class HomeSectionController extends Controller
         }
     }
 
+    public function updateAjax(Request $request)
+    {
+        $inputData = $request->all();
+        $homeSection = HomeSection::find($inputData['id']);
+        $homeSection->update($inputData);
+        return response()->json([
+            'status'=> 'success',
+        ]);
+    }
+
     public function statusChange(Request $request, $id)
     {
         $HomeSection = HomeSection::find($id);

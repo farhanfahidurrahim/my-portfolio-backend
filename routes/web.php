@@ -38,6 +38,7 @@ Route::middleware('auth')->group(function () {
     */
     Route::resource('home-section', HomeSectionController::class);
     Route::post('/test', [HomeSectionController::class, 'storeByAjax'])->name('test');
+    Route::post('/update/{id}', [HomeSectionController::class, 'updateAjax'])->name('home-status.update');
     Route::put('/status-change/{id}', [HomeSectionController::class, 'statusChange'])->name('status.change');
 });
 

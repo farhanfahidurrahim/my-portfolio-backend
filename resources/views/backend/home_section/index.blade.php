@@ -61,8 +61,11 @@
                                             </div>
                                         </td>
                                         <td>
-                                            <a href="" class="btn btn-outline-primary" data-bs-toggle="modal"
-                                                data-bs-target="#editModal">Edit</a>
+                                            <a href="" class="btn btn-outline-primary getFormData"
+                                                data-bs-toggle="modal" data-bs-target="#editModal"
+                                                data-id="{{ $row->id }}" data-name="{{ $row->name }}"
+                                                data-designation="{{ $row->designation }}"
+                                                data-resume="{{ $row->resume }}">Edit</a>
                                             <a href="" class="btn btn-outline-danger">Delete</a>
                                         </td>
                                     </tr>
@@ -165,20 +168,20 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Create New</h1>
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Edit</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <!-- Modal Body -->
                 <div class="modal-body">
-                    <form id="addModalForm" action="" method="" class="row g-3">
+                    <form id="updateModalForm" action="" method="" class="row g-3">
                         @csrf
-                        <div class="errMsgShow">
+                        <div class="errMsgShow"></div>
 
-                        </div>
+                        <input type="hidden" id="edit_id">
 
                         <div class="col-md-6">
                             <label for="inputName5" class="form-label">Your Name</label>
-                            <input type="text" name="name" id="name" value="{{ old('name') }}"
+                            <input type="text" name="name" id="edit_name" value="{{ old('name') }}"
                                 class="form-control @error('name') is-invalid @enderror">
                             @error('name')
                                 <span class="text-danger">{{ $message }}</span>
@@ -186,7 +189,8 @@
                         </div>
                         <div class="col-md-6">
                             <label for="inputEmail5" class="form-label">Designation</label>
-                            <input type="text" name="designation" id="designation" value="{{ old('designation') }}"
+                            <input type="text" name="designation" id="edit_designation"
+                                value="{{ old('designation') }}"
                                 class="form-control @error('designation') is-invalid @enderror">
                             @error('designation')
                                 <span class="text-danger">{{ $message }}</span>
@@ -194,14 +198,14 @@
                         </div>
                         <div class="col-md-6">
                             <label for="inputPassword5" class="form-label">Resume</label>
-                            <input type="text" name="resume" id="resume" value="{{ old('resume') }}"
+                            <input type="text" name="resume" id="edit_resume" value="{{ old('resume') }}"
                                 class="form-control
                             @error('resume') is-invalid @enderror">
                             @error('resume')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
-                        <div class="col-6">
+                        {{-- <div class="col-6">
                             <label for="inputAddress5" class="form-label">Github Link</label>
                             <input type="url" name="github_link" id="github_link" value="{{ old('github_link') }}"
                                 class="form-control @error('github_link') is-invalid @enderror">
@@ -225,17 +229,9 @@
                             @error('others_link')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
-                        </div>
-                        <div class="col-md-4">
-                            <label for="inputState" class="form-label">Status</label>
-                            <select name="status" id="status" class="form-select">
-                                <option selected disabled>Choose...</option>
-                                <option value="active">Active</option>
-                                <option value="inactive">Inactive</option>
-                            </select>
-                        </div>
+                        </div> --}}
                         <div class="text-center">
-                            <button type="submit" class="btn btn-primary submitBtnModal">Submit</button>
+                            <button type="submit" class="btn btn-primary updateBtnForm">Update</button>
                             <button type="reset" class="btn btn-secondary">Reset</button>
                         </div>
                     </form>
@@ -254,10 +250,10 @@
         });
     </script>
 
-    <!-- AJAX Form Submit -->
     <script>
         $(document).ready(function() {
 
+            // <!-- AJAX Form Create Submit -->
             $(document).on('click', '.submitBtnModal', function(e) {
                 e.preventDefault();
                 let name = $('#name').val();
@@ -297,6 +293,47 @@
                                 '</span>')
                         });
                     },
+                });
+            });
+
+
+            // <!-- AJAX Form Edit Update -->
+            $(document).on('click', '.getFormData', function(e) {
+                e.preventDefault();
+                let id = $(this).data('id');
+                let name = $(this).data('name');
+                let designation = $(this).data('designation');
+                let resume = $(this).data('resume');
+
+                $('#edit_id').val(id);
+                $('#edit_name').val(name);
+                $('#edit_designation').val(designation);
+                $('#edit_resume').val(resume);
+            });
+
+            $(document).on('click', '.updateBtnForm', function(e) {
+                e.preventDefault();
+                let id = $('#edit_id').val();
+                let name = $('#edit_name').val();
+                let designation = $('#edit_designation').val();
+                let resume = $('#edit_resume').val();
+
+                $.ajax({
+                    url: "{{ url('update/') }}/" + id,
+                    method: "POST",
+                    data: {
+                        id: id,
+                        name: name,
+                        designation: designation,
+                        resume: resume,
+                    },
+                    success: function(response) {
+                        if(response.status == "success"){
+                            $('#editModal').modal('hide');
+                            $('.table').load(location.href + ' .table');
+                        }
+                    },
+                    error: function(err) {},
                 });
             });
         });
