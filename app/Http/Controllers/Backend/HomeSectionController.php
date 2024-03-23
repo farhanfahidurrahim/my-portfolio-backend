@@ -15,7 +15,7 @@ class HomeSectionController extends Controller
      */
     public function index()
     {
-        $HomeSection = HomeSection::all();
+        $HomeSection = HomeSection::latest()->get();
         return view('backend.home_section.index', compact('HomeSection'));
     }
 
@@ -63,7 +63,7 @@ class HomeSectionController extends Controller
         $homeSection = HomeSection::find($inputData['id']);
         $homeSection->update($inputData);
         return response()->json([
-            'status'=> 'success',
+            'status' => 'success',
         ]);
     }
 

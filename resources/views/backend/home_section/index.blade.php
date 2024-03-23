@@ -61,7 +61,7 @@
                                             </div>
                                         </td>
                                         <td>
-                                            <a href="" class="btn btn-outline-primary getFormData"
+                                            <a href="" class="btn btn-outline-primary getTableData"
                                                 data-bs-toggle="modal" data-bs-target="#editModal"
                                                 data-id="{{ $row->id }}" data-name="{{ $row->name }}"
                                                 data-designation="{{ $row->designation }}"
@@ -240,20 +240,11 @@
         </div>
     </div>
 
-    <!-- jquery Ajax -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-    </script>
+    <!-- ========================= Script ======================== -->
 
-    <script>
-        $(document).ready(function() {
-
-            // <!-- AJAX Form Create Submit -->
+    @push('scripts')
+        <script>
+            // <!-- Create Submit AJAX Form -->
             $(document).on('click', '.submitBtnModal', function(e) {
                 e.preventDefault();
                 let name = $('#name').val();
@@ -275,6 +266,7 @@
                         linkedin_link: linkedin_link,
                         others_link: others_link,
                         status: status,
+                        _token: '{{ csrf_token() }}',
                     },
                     success: function(response) {
                         if (response.status == 'success') {
@@ -296,9 +288,8 @@
                 });
             });
 
-
-            // <!-- AJAX Form Edit Update -->
-            $(document).on('click', '.getFormData', function(e) {
+            // <!-- Edit Update AJAX Form -->
+            $(document).on('click', '.getTableData', function(e) {
                 e.preventDefault();
                 let id = $(this).data('id');
                 let name = $(this).data('name');
@@ -326,6 +317,7 @@
                         name: name,
                         designation: designation,
                         resume: resume,
+                        _token: '{{ csrf_token() }}',
                     },
                     success: function(response) {
                         if (response.status == "success") {
@@ -336,13 +328,11 @@
                     error: function(err) {},
                 });
             });
-        });
-    </script>
+        </script>
 
-    <!-- AJAX Status Change -->
-    <script>
-        $(document).ready(function() {
-            $('.statusToggleCls').on('change', function() {
+        <!-- Status Change AJAX -->
+        <script>
+            $(document).on('change', '.statusToggleCls', function() {
                 let id = $(this).attr('id').replace('statusToggle', '');
                 let status = $(this).prop('checked') ? 'active' : 'inactive';
 
@@ -352,6 +342,7 @@
                     data: {
                         id: id,
                         status: status,
+                        _token: '{{ csrf_token() }}',
                     },
                     success: function(response) {
                         if (response.status == 'success') {
@@ -360,6 +351,6 @@
                     }
                 });
             });
-        });
-    </script>
+        </script>
+    @endpush
 @endsection
