@@ -40,6 +40,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('home', HomeSectionController::class);
     Route::post('/home/store', [HomeSectionController::class, 'storeAjax'])->name('home.store');
     Route::post('/home/update/{id}', [HomeSectionController::class, 'updateAjax'])->name('home.update');
+    Route::delete('/home/delete/{id}', [HomeSectionController::class, 'deleteAjax'])->name('home.delete');
     Route::put('/home/status-change/{id}', [HomeSectionController::class, 'statusChangeAjax'])->name('home.status.change');
 
     /*

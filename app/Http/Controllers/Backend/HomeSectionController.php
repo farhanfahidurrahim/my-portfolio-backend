@@ -67,6 +67,23 @@ class HomeSectionController extends Controller
         ]);
     }
 
+    public function deleteAjax($id)
+    {
+        $homeSection = HomeSection::find($id);
+
+        if ($homeSection) {
+            $homeSection->delete();
+            return response()->json([
+                'status' => 'success',
+            ], 200);
+        }
+
+        return response()->json([
+            'status' => 'error',
+            'message' => 'Id not found',
+        ], 404);
+    }
+
     public function statusChangeAjax(Request $request, $id)
     {
         $HomeSection = HomeSection::find($id);

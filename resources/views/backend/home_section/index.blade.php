@@ -66,7 +66,9 @@
                                                 data-id="{{ $row->id }}" data-name="{{ $row->name }}"
                                                 data-designation="{{ $row->designation }}"
                                                 data-resume="{{ $row->resume }}">Edit</a>
-                                            <a href="" class="btn btn-outline-danger">Delete</a>
+                                            <a href="#" class="btn btn-outline-danger deleteBtn"
+                                                data-id="{{ $row->id }}">Delete</a>
+
                                         </td>
                                     </tr>
                                 @endforeach
@@ -155,7 +157,6 @@
                         </div>
                         <div class="text-center">
                             <button type="submit" class="btn btn-primary submitBtnModal">Submit</button>
-                            <button type="reset" class="btn btn-secondary">Reset</button>
                         </div>
                     </form>
                 </div>
@@ -232,7 +233,6 @@
                         </div> --}}
                         <div class="text-center">
                             <button type="submit" class="btn btn-primary updateBtnForm">Update</button>
-                            <button type="reset" class="btn btn-secondary">Reset</button>
                         </div>
                     </form>
                 </div>
@@ -328,7 +328,30 @@
                     error: function(err) {},
                 });
             });
+
+            // <!-- Edit Update AJAX Form -->
+            $(document).on('click', '.deleteBtn', function(e) {
+                e.preventDefault();
+                let id = $(this).data('id')
+
+                $.ajax({
+                    url: "{{ url('home/delete/') }}/" + id,
+                    method: "DELETE",
+                    data: {
+                        id,
+                        _token: "{{ csrf_token() }}"
+                    },
+                    success: function(response) {
+                        toastr.success("Deleted Successfully!");
+                        $('.table').load(location.href + ' .table');
+                    },
+                    error: function(err) {
+                        console.log(err)
+                    }
+                });
+            });
         </script>
+
 
         <!-- Status Change AJAX -->
         <script>
