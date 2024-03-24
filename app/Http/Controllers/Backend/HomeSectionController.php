@@ -43,8 +43,9 @@ class HomeSectionController extends Controller
         }
     }
 
-    public function storeAjax(HomeSectionRequest $request)
+    public function storeAjax(Request $request)
     {
+        //dd($request->all());
         $inputData = $request->all();
         $homeSection = HomeSection::create($inputData);
         if ($homeSection) {
