@@ -1,9 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Backend;
 
 use App\Models\AboutSection;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Brian2694\Toastr\Facades\Toastr;
 
 class AboutSectionController extends Controller
 {
@@ -29,7 +31,16 @@ class AboutSectionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $inputData = $request->all();
+        $homeSection = AboutSection::create($inputData);
+        if ($homeSection) {
+            return response()->json([
+                'status' => 'success',
+            ]);
+        } else {
+            Toastr::error('Something went wrong!', 'Error');
+            return response()->json(['error' => 'Something went wrong'], 500);
+        }
     }
 
     /**

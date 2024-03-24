@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\AboutSectionController;
+use App\Http\Controllers\Backend\AboutSectionController;
 use App\Http\Controllers\Backend\HomeSectionController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -47,6 +47,7 @@ Route::middleware('auth')->group(function () {
     * About Section Routes...
     */
     Route::resource('about', AboutSectionController::class);
+
 });
 
 require __DIR__ . '/auth.php';
