@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Backend\AboutSectionController;
 use App\Http\Controllers\Backend\HomeSectionController;
+use App\Http\Controllers\Frontend\IndexController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 /* ======================================================================== */
@@ -12,19 +13,18 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 */
 
-Route::get('/', function () {
-    return view('frontend.index');
-});
+Route::get('/', [IndexController::class, 'index']);
 
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
 
 /*
 |--------------------------------------------------------------------------
 | Backend Admin Routes
 |--------------------------------------------------------------------------
 */
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
+
 Route::get('/dashboard', function () {
     return view('backend.dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -47,7 +47,6 @@ Route::middleware('auth')->group(function () {
     * About Section Routes...
     */
     Route::resource('about', AboutSectionController::class);
-
 });
 
 require __DIR__ . '/auth.php';

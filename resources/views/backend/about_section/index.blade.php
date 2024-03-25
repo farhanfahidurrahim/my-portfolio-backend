@@ -31,12 +31,18 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Name</th>
-                                    <th>Designation</th>
-                                    <th>Resume</th>
-                                    <th>Github</th>
-                                    <th>LinkedIn</th>
-                                    <th>Others</th>
+                                    <th>Description</th>
+                                    <th>DOB</th>
+                                    <th>Email</th>
+                                    <th>Phone</th>
+                                    <th>Whatsapp</th>
+                                    <th>address</th>
+                                    <th>expertise_one</th>
+                                    <th>expertise_one_desc</th>
+                                    <th>expertise_two</th>
+                                    <th>expertise_two_desc</th>
+                                    <th>expertise_three</th>
+                                    <th>expertise_three_desc</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
@@ -45,12 +51,18 @@
                                 @foreach ($aboutSection as $row)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $row->name }}</td>
-                                        <td>{{ $row->designation }}</td>
-                                        <td>{{ $row->resume }}</td>
-                                        <td>{{ $row->github_link }}</td>
-                                        <td>{{ $row->linkedin_link }}</td>
-                                        <td>{{ $row->others_link }}</td>
+                                        <td>{{ $row->description ?? '-' }}</td>
+                                        <td>{{ $row->dob }}</td>
+                                        <td>{{ $row->email }}</td>
+                                        <td>{{ $row->phone }}</td>
+                                        <td>{{ $row->whatsapp }}</td>
+                                        <td>{{ $row->address }}</td>
+                                        <td>{{ $row->expertise_one }}</td>
+                                        <td>{{ $row->expertise_one_desc }}</td>
+                                        <td>{{ $row->expertise_two }}</td>
+                                        <td>{{ $row->expertise_two_desc }}</td>
+                                        <td>{{ $row->expertise_three }}</td>
+                                        <td>{{ $row->expertise_three_desc }}</td>
                                         <td>
                                             <div class="form-check form-switch">
                                                 <input class="form-check-input statusToggleCls" type="checkbox"

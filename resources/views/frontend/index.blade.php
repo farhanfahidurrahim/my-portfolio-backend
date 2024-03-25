@@ -59,7 +59,7 @@
             <div class="col-lg-4 about-card">
                 <h3 class="font-weight-light">Who am I ?</h3>
                 <span class="line mb-5"></span>
-                <h5 class="mb-3">A Web Designer / Developer Located In Our Lovely Earth</h5>
+                <h5 class="mb-3">A Web Developer Located In Our Lovely Earth</h5>
                 <p class="mt-20">Lorem ipsum dolor sit amet, consectetur adipisicing elit.sit amet, Qui deserunt
                     consequatur fugit repellendusillo voluptas?</p>
                 <button class="btn btn-outline-danger"><i class="icon-down-circled2"></i>Download My CV</button>
@@ -68,23 +68,23 @@
                 <h3 class="font-weight-light">Personal Info</h3>
                 <span class="line mb-5"></span>
                 <ul class="mt40 info list-unstyled">
-                    <li><span>Birthdate</span> : 09/13/1996</li>
-                    <li><span>Email</span> : info@domain.com</li>
-                    <li><span>Phone</span> : + (123) 456-7890</li>
-                    <li><span>Skype</span> : John_Doe</li>
-                    <li><span>Address</span> : 12345 Fake ST NoWhere AB Country.</li>
+                    <li><span>Birthdate</span> : {{ $aboutSection->dob }}</li>
+                    <li><span>Email</span> : {{ $aboutSection->email }}</li>
+                    <li><span>Phone</span> : {{ $aboutSection->phone }}</li>
+                    <li><span>WhatsApp</span> : {{ $aboutSection->whatsapp }}</li>
+                    <li><span>Address</span> : {{ $aboutSection->address }}</li>
                 </ul>
                 <ul class="social-icons pt-3">
-                    <li class="social-item"><a class="social-link" href="https://www.free-css.com/free-css-templates"><i
-                                class="ti-facebook" aria-hidden="true"></i></a></li>
-                    <li class="social-item"><a class="social-link" href="https://www.free-css.com/free-css-templates"><i
-                                class="ti-twitter" aria-hidden="true"></i></a></li>
-                    <li class="social-item"><a class="social-link" href="https://www.free-css.com/free-css-templates"><i
-                                class="ti-google" aria-hidden="true"></i></a></li>
-                    <li class="social-item"><a class="social-link" href="https://www.free-css.com/free-css-templates"><i
-                                class="ti-instagram" aria-hidden="true"></i></a></li>
-                    <li class="social-item"><a class="social-link" href="https://www.free-css.com/free-css-templates"><i
-                                class="ti-github" aria-hidden="true"></i></a></li>
+                    <li class="social-item"><a class="social-link" href="{{ $homeSection->github_link }}"
+                            target="_blank"><i class="ti-github" aria-hidden="true"></i></a></li>
+                    <li class="social-item"><a class="social-link" href="{{ $homeSection->linkedin_link }}"
+                            target="_blank"><i class="ti-linkedin" aria-hidden="true"></i></a></li>
+                    <li class="social-item"><a class="social-link" href=""><i class="ti-facebook"
+                                aria-hidden="true"></i></a></li>
+                    <li class="social-item"><a class="social-link" href=""><i class="ti-twitter"
+                                aria-hidden="true"></i></a></li>
+                    <li class="social-item"><a class="social-link" href=""><i class="ti-instagram"
+                                aria-hidden="true"></i></a></li>
                 </ul>
             </div>
             <div class="col-lg-4 about-card">
@@ -93,7 +93,7 @@
                 <div class="row">
                     <div class="col-1 text-danger pt-1"><i class="ti-widget icon-lg"></i></div>
                     <div class="col-10 ml-auto mr-3">
-                        <h6>UX Design</h6>
+                        <h6>{{ $aboutSection->expertise_one }}</h6>
                         <p class="subtitle">exercitat Repellendus, corrupt.</p>
                         <hr>
                     </div>
@@ -101,7 +101,7 @@
                 <div class="row">
                     <div class="col-1 text-danger pt-1"><i class="ti-paint-bucket icon-lg"></i></div>
                     <div class="col-10 ml-auto mr-3">
-                        <h6>Web Development</h6>
+                        <h6>{{ $aboutSection->expertise_two }}</h6>
                         <p class="subtitle">Lorem ipsum dolor sit consectetur.</p>
                         <hr>
                     </div>
@@ -109,7 +109,7 @@
                 <div class="row">
                     <div class="col-1 text-danger pt-1"><i class="ti-stats-up icon-lg"></i></div>
                     <div class="col-10 ml-auto mr-3">
-                        <h6>Digital Marketing</h6>
+                        <h6>{{ $aboutSection->expertise_three }}</h6>
                         <p class="subtitle">voluptate commodi illo voluptatib.</p>
                         <hr>
                     </div>

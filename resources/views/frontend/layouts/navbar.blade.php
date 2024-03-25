@@ -13,8 +13,8 @@
                 <img src="{{ asset('frontend') }}/assets/imgs/avatar.jpg" alt="website template image"
                     class="brand-img">
                 <li class="brand-txt">
-                    <h5 class="brand-title">John Doe</h5>
-                    <div class="brand-subtitle">Web Designer | Developer</div>
+                    <h5 class="brand-title">{{ $homeSection->name }}</h5>
+                    <div class="brand-subtitle">{{ $homeSection->designation }}</div>
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">
